@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Local databases / artifacts
+local.db
+*.sqlite
+_test_upload.txt
+_downloaded.txt
+
+# OS / editor
+.DS_Store
+.vscode/
+

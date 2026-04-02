@@ -1,0 +1,17 @@
+# Google App Engine — Standard Environment (Python 3)
+# 1. Create a Cloud Storage bucket in the same GCP project (Console → Cloud Storage → Buckets).
+# 2. Replace YOUR_BUCKET_NAME below with that bucket name.
+# 3. Grant the App Engine default service account access to the bucket:
+#    Storage → bucket → Permissions → add principal:
+#    PROJECT_ID@appspot.gserviceaccount.com with role "Storage Object Admin" (or narrower as needed).
+
+runtime: python312
+
+entrypoint: gunicorn -b :$PORT main:app
+
+env_variables:
+  GCS_BUCKET_NAME: "YOUR_BUCKET_NAME"
+
+handlers:
+  - url: /.*
+    script: auto
