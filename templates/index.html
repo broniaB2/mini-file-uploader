@@ -24,7 +24,7 @@
     }
 
     .muted {
-      color: #555555;
+      color: hsl(0, 0%, 20%);
       font-size: 0.95rem;
       margin-bottom: 1.5rem;
     }
@@ -95,8 +95,9 @@
 </head>
 
 <body>
-  <h>welcome to the mini file uploader</h>
-  <h1>Mini File Uploader</h1>
+  <h1 bold style="color: #1565c0;">📁 welcome to my mini file uploader 😊</h1>
+  <p class="muted">Upload, manage, and share your files 🚀</p>
+
   <p class="muted">Files are stored in Railway-managed Postgres database so this app is stateless.</p>
 
   <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">

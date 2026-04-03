@@ -1,0 +1,57 @@
+# Railway File Uploader – CRUD with PostgreSQL
+
+[![Flask](https://img.shields.io/badge/Flask-2.3-blue)](https://flask.palletsprojects.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791)](https://www.postgresql.org/)
+[![Railway](https://img.shields.io/badge/Railway-deployed-0B0D0E)](https://railway.app/)
+
+A production‑ready file management system deployed on **Railway**.  
+Users can **upload**, **list**, **rename**, **download** and **delete** files.  
+File metadata is stored in a **Railway‑managed PostgreSQL** database, while file contents are persisted on a **Railway Volume** (ephemeral‑safe storage).  
+Full CRUD operations, automatic logging, and easy horizontal scaling (with object storage) are documented.
+
+---
+
+## ✨ Features
+
+- 📤 **Upload** any file (with size limit)
+- 📋 **List** all uploaded files with metadata (name, size, upload date)
+- ✏️ **Rename** existing files (updates both filename and DB)
+- ⬇️ **Download** files directly
+- 🗑️ **Delete** files (removes from disk and DB)
+- 🗄️ **PostgreSQL** stores all file metadata
+- 💾 **Railway Volume** for persistent file storage
+- 🚀 **One‑click deploy** on Railway (auto‑deploy from GitHub)
+- 📊 **Structured logging** to stdout (collected by Railway)
+- 🔧 **Environment variable** configuration
+
+---
+
+## 🧱 Tech Stack
+
+| Layer       | Technology                         |
+|-------------|------------------------------------|
+| Backend     | Python 3.10+ / Flask               |
+| Database    | PostgreSQL 15 (Railway managed)    |
+| File Store  | Local filesystem (Railway Volume)  |
+| Deployment  | Railway (with Procfile + Gunicorn) |
+| Logging     | Python `logging` → stdout          |
+| CI/CD       | GitHub → Railway automatic deploys |
+
+---
+
+## 📋 Prerequisites
+
+- [Python 3.10+](https://www.python.org/)
+- [PostgreSQL](https://www.postgresql.org/) (for local testing)
+- [Railway account](https://railway.app/) (for deployment)
+- `git` and a GitHub repository
+
+---
+
+## 🛠️ Local Development
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/broniaB2/mini-file-uploader.git
+cd mini-file-uploader
