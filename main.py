@@ -22,7 +22,7 @@ class Base(DeclarativeBase):
 
 
 class UploadedFile(Base):
-    __tablename__ = "uploaded_files"
+    __tablename__ = "uploads"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     filename: Mapped[str] = mapped_column(String(512), nullable=False)
