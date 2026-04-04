@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 from flask import Flask, Response, abort, redirect, render_template, request, url_for
-from sqlalchemy import DateTime, Integer, LargeBinary, String, func, select
+from sqlalchemy import DateTime, Integer, LargeBinary, String, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 from sqlalchemy import create_engine
 from werkzeug.utils import secure_filename
@@ -40,9 +40,9 @@ Base.metadata.create_all(engine)
 @app.get("/")
 def index():
     with SessionLocal() as session:
-        rows = session.execute(
-            select(UploadedFile).order_by(UploadedFile.uploaded_at.desc())
-        ).scalars()
+        # Query all uploads ordered by date
+        files_data = session.query(UploadedFile).order_by(UploadedFile.uploaded_at.desc()).all()
+
         files = [
             {
                 "id": f.id,
@@ -50,7 +50,7 @@ def index():
                 "size": len(f.data),
                 "uploaded_at": f.uploaded_at,
             }
-            for f in rows
+            for f in files_data
         ]
     return render_template("index.html", files=files)
 
