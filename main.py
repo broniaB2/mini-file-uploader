@@ -127,6 +127,35 @@ def delete(file_id: int):
     return redirect(url_for("index"))
 
 
+@app.get("/debug/db-info")
+def db_info():
+    """Diagnostic endpoint to check database connection and table info"""
+    from sqlalchemy import inspect, text
+
+    info = {
+        "database_url": DATABASE_URL.split("@")[1] if "@" in DATABASE_URL else "hidden",
+        "tables": [],
+        "uploads_count": 0,
+        "uploads_columns": [],
+    }
+
+    try:
+        with SessionLocal() as session:
+            # Get all tables
+            inspector = inspect(engine)
+            info["tables"] = inspector.get_table_names()
+
+            # Get uploads table info
+            if "uploads" in info["tables"]:
+                info["uploads_columns"] = [col["name"] for col in inspector.get_columns("uploads")]
+                result = session.execute(text("SELECT COUNT(*) FROM uploads")).scalar()
+                info["uploads_count"] = result
+    except Exception as e:
+        info["error"] = str(e)
+
+    return info
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port, debug=True)
