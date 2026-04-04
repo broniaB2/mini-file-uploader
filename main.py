@@ -41,13 +41,18 @@ Base.metadata.create_all(engine)
 def index():
     with SessionLocal() as session:
         rows = session.execute(
-            select(UploadedFile).order_by(UploadedFile.uploaded_at.desc())
-        ).scalars()
+            select(
+                UploadedFile.id,
+                UploadedFile.filename,
+                UploadedFile.uploaded_at,
+                func.octet_length(UploadedFile.data).label("size"),
+            ).order_by(UploadedFile.uploaded_at.desc())
+        )
         files = [
             {
                 "id": f.id,
                 "name": f.filename,
-                "size": len(f.data),
+                "size": f.size,
                 "uploaded_at": f.uploaded_at,
             }
             for f in rows
